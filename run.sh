@@ -50,7 +50,6 @@ if [ -n "$MANYUSER" ]; then
         done
 
         sed -ri "s@^(MYSQL_HOST = ).*@\1'$MYSQL_HOST'@" $INSTALL_DIR/userapiconfig.py
-        sed -ri "s@^(MYSQL_PORT = ).*@\1'$MYSQL_PORT'@" $INSTALL_DIR/userapiconfig.py
         sed -ri "s@^(MYSQL_USER = ).*@\1'$MYSQL_USER'@" $INSTALL_DIR/userapiconfig.py
         sed -ri "s@^(MYSQL_PASS = ).*@\1'$MYSQL_PASSWORD'@" $INSTALL_DIR/userapiconfig.py
         sed -ri "s@^(MYSQL_DB   = ).*@\1'$MYSQL_DBNAME'@" $INSTALL_DIR/userapiconfig.py

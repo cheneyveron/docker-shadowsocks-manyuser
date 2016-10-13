@@ -21,7 +21,7 @@ RUN git clone -b manyuser https://github.com/glzjin/shadowsocks.git $INSTALL_DIR
 ADD run.sh /run.sh
 RUN chmod +x /run.sh
 
-EXPOSE 50000-52800
+#EXPOSE 50000-50100
 
 # Configure container to run as an executable
 ENTRYPOINT ["/run.sh"]
