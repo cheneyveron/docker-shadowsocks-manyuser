@@ -49,16 +49,21 @@ if [ -n "$MANYUSER" ]; then
                 fi
         done
 
-        sed -ri "s@^(MYSQL_HOST = ).*@\1'$MYSQL_HOST'@" $INSTALL_DIR/Config.py
-        sed -ri "s@^(MYSQL_PORT = ).*@\1'$MYSQL_PORT'@" $INSTALL_DIR/Config.py
-        sed -ri "s@^(MYSQL_USER = ).*@\1'$MYSQL_USER'@" $INSTALL_DIR/Config.py
-        sed -ri "s@^(MYSQL_PASS = ).*@\1'$MYSQL_PASSWORD'@" $INSTALL_DIR/Config.py
-        sed -ri "s@^(MYSQL_DB   = ).*@\1'$MYSQL_DBNAME'@" $INSTALL_DIR/Config.py
+        sed -ri "s@^(MYSQL_HOST = ).*@\1'$MYSQL_HOST'@" $INSTALL_DIR/userapiconfig.py
+        sed -ri "s@^(MYSQL_PORT = ).*@\1'$MYSQL_PORT'@" $INSTALL_DIR/userapiconfig.py
+        sed -ri "s@^(MYSQL_USER = ).*@\1'$MYSQL_USER'@" $INSTALL_DIR/userapiconfig.py
+        sed -ri "s@^(MYSQL_PASS = ).*@\1'$MYSQL_PASSWORD'@" $INSTALL_DIR/userapiconfig.py
+        sed -ri "s@^(MYSQL_DB   = ).*@\1'$MYSQL_DBNAME'@" $INSTALL_DIR/userapiconfig.py
 else
         echo >&2 'error:  missing MANYUSER'
         echo >&2 '  Did you forget to add -e MANYUSER=... ?'
         exit 1
 fi
+
+# 节点id
+sed -ri "s@^(NODE_ID = ).*@\1'$NODE_ID'@" $INSTALL_DIR/userapiconfig.py
+# Public Address
+sed -ri "s@^(SERVER_PUB_ADDR = ).*@\1'$SERVER_PUB_ADDR'@" $INSTALL_DIR/userapiconfig.py
 
 if [ "$MANYUSER" = "R" ]; then
         # 协议定义
@@ -80,13 +85,7 @@ if [ "$MANYUSER" = "R" ]; then
 
         # 混淆插件
         if [ -n "$OBFS" ]; then
-                if [[ ! "$OBFS" =~ ^(plain|http_simple|http_simple_compatible|tls_simple|tls_simple_compatible|random_head|random_head_compatible|tls1.0_session_auth|tls1.0_session_auth_compatible)$ ]]; then
-                        echo >&2 'error:  missing OBFS'
-                        echo >&2 '  You must be used -e OBFS=[plain|http_simple|http_simple_compatible|tls_simple|tls_simple_compatible|random_head|random_head_compatible|tls1.0_session_auth|tls1.0_session_auth_compatible]'
-                        exit 1
-                else
-                        sed -ri "s@^(.*\"obfs\": ).*@\1\"$OBFS\",@" $INSTALL_DIR/user-config.json
-                fi
+            sed -ri "s@^(.*\"obfs\": ).*@\1\"$OBFS\",@" $INSTALL_DIR/user-config.json
         fi
 
         # 混淆自定义参数
