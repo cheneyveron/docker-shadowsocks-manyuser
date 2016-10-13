@@ -2,11 +2,10 @@
 
 ### 用法
     docker run -d --name=shadowsocks \
-    -p 10000-10050:10000-10050 \
-    -p 10000-10050:10000-10050/udp \
+    -p 50000-51000:50000-51000 \
+    -p 50000-51000:50000-51000/udp \
     -e MANYUSER=R \
     -e MYSQL_HOST=1.2.3.4 \
-    -e MYSQL_PORT=3306 \
     -e MYSQL_USER=mysqlroot \
     -e MYSQL_PASSWORD=mysqlpasswd \
     -e MYSQL_DBNAME=shadowsocks \
@@ -14,7 +13,9 @@
     -e PROTOCOL=auth_sha1_compatible \
     -e PROTOCOL_PARAM=100 \
     -e OBFS=tls1.0_session_auth_compatible \
-    -e OBFS_PARAM="youku.com" \
+    -e OBFS_PARAM="global.bing.com" \
+    -e NODE_ID=10 \
+    -e SERVER_PUB_ADDR=104.199.166.73 \
     -e SPAM=On --privileged \
     ywfwj2008/shadowsocks-manyuser
 
@@ -65,6 +66,8 @@ random_head| 发送一个随机包再通讯的协议
 random_head_compatible| 兼容原协议版
 tls1.0_session_auth| 伪装为tls session握手协议，同时能抗重放攻击
 tls1.0_session_auth_compatible| 兼容原协议版
+tls1.2_ticket_auth| 伪装为tls 1.2 ticket握手协议，抵抗各种攻击，伪装更完美。
+tls1.2_ticket_auth_compatible | 兼容原协议版
 
 自定义参数，参数为http请求的host，例如设置为cloudfront.com伪装为云服务器请求，可以使用逗号分割多个host如a.com,b.net,c.org，这时会随机使用。注意，错误设置此参数可能导致连接被断开甚至IP被封锁，如不清楚如何设置那么请留空。
 
