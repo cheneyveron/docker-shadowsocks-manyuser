@@ -23,12 +23,6 @@ if [ -n "$MANYUSER" ]; then
                 exit 1
         fi
 
-        if [ -z "$MYSQL_PORT" ]; then
-                echo >&2 'error:  missing MYSQL_PORT'
-                echo >&2 '  Did you forget to add -e MYSQL_PORT=... ?'
-                exit 1
-        fi
-
         if [ -z "$MYSQL_HOST" ]; then
                 echo >&2 'error:  missing MYSQL_HOST'
                 echo >&2 '  Did you forget to add -e MYSQL_HOST=... ?'
